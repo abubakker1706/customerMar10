@@ -1,11 +1,10 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { Container } from "@mui/system";
-import "./Content.css";
+import "./plan3.css";
 
 import axios from "axios";
 import Divider from "@mui/material/Divider";
-import { Values } from "../../Context/ContextTab";
-import ApiCaller from "../../ApiCaller/ApiCaller";
+
 import { ScrollMenu } from "react-horizontal-scrolling-menu";
 import Button from "@mui/material/Button";
 import { CompressOutlined } from "@mui/icons-material";
@@ -18,15 +17,14 @@ import nonveg from "../../assets/non-veg.png"
 import Card from "../Card/Card";
 import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import ApiCaller from "../../../ApiCaller/ApiCaller";
+//import Card from '@mui/material/Card';
 
-
-const NewsContent4 = () => {
+const NewsContent3 = () => {
   const [Index, setIndex] = useState(null);
   const [menu_type, setMenu_type] = useState([]);
   const [List, setList] = useState([]);
-  const { Dark } = React.useContext(Values);
-  const { ShopName, setShopName } = React.useContext(Values);
-  const { Orders, setOrders } = React.useContext(Values);
+  const [restaurant,setRestaurant] = useState({})
   const [ImgLink, setImgLink] = useState("");
   const [SpcLink, setSpcLink] = useState("");
   const [show,setShow] = useState(false);
@@ -35,7 +33,7 @@ const NewsContent4 = () => {
 const [items, setItems] = useState([]);
 const [isChecked, setIsChecked] = useState(false);
 const[bottom ,setBottom]= useState(false);
-const [restaurant,setRestaurant] = useState({})
+
   
 
 
@@ -46,31 +44,31 @@ const [restaurant,setRestaurant] = useState({})
     setIndex(index);
   };
 
-  const OrderReceiver = (id, name, price) => {
-    let OrderArray = [...Orders, { id, name, price }];
-    setOrders(OrderArray);
-  };
+  // const OrderReceiver = (id, name, price) => {
+  //   let OrderArray = [...Orders, { id, name, price }];
+  //   setOrders(OrderArray);
+  // };
 
-  const OrderReducer = (id, name, price) => {
-    // console.log("blah");
-    const itemToBeRemoved = { id: id, name: name, price: price };
-    let apps = Orders;
-    const findIndex = apps.findIndex((a) => a.id === itemToBeRemoved.id);
-    findIndex !== -1 && apps.splice(findIndex, 1);
-    setOrders([...apps]);
-  };
+  // const OrderReducer = (id, name, price) => {
+  //   // console.log("blah");
+  //   const itemToBeRemoved = { id: id, name: name, price: price };
+  //   let apps = Orders;
+  //   const findIndex = apps.findIndex((a) => a.id === itemToBeRemoved.id);
+  //   findIndex !== -1 && apps.splice(findIndex, 1);
+  //   setOrders([...apps]);
+  // };
 
   // console.log("Orders are", Orders);
 
-  const ItemCounter = (id, name, price) => {
-    let count = 0;
-    Orders.map((item) => {
-      if (item?.id == id && item?.name == name && item?.price == price) {
-        count = count + 1;
-      }
-    });
-    return count;
-  };
+  // const ItemCounter = (id, name, price) => {
+  //   let count = 0;
+  //   Orders.map((item) => {
+  //     if (item?.id == id && item?.name == name && item?.price == price) {
+  //       count = count + 1;
+  //     }
+  //   });
+  //   return count;
+  // };
 
   useEffect(() => {
     const queryParams = new URLSearchParams(window.location.search);
@@ -83,10 +81,9 @@ const [restaurant,setRestaurant] = useState({})
         console.log(Response.data?.data?.menu);
         //console.log(Response.data?.data?.menu?.arr_cat);
 
-       setShopName(Response.data?.data?.restaurant[0]?.name);
+      //  setShopName(Response.data?.data?.restaurant[0]?.name);
         setMenu_type(Response.data?.data?.menu);
         setRestaurant(Response.data?.data?.restaurant[0]);
-
         //setImgLink(Response.data?.data?.arr_links?.menuitem_image);
         //setSpcLink(Response.data?.data?.arr_links?.menuitem_icons);
         // caller(0);
@@ -100,6 +97,7 @@ const [restaurant,setRestaurant] = useState({})
     //   addTodo();
     // });
   }, []);
+
   useEffect(() => {
     const scanFunction = async () => {
       if (restaurant.id) {
@@ -123,8 +121,6 @@ const [restaurant,setRestaurant] = useState({})
   }, [restaurant.id]);
   console.log(menu_type.arr_cat,"menu")
 
-
-
   // const addTodo = useCallback(() => {
   //   console.log(menu_type);
   // }, [menu_type]);
@@ -142,11 +138,10 @@ const [restaurant,setRestaurant] = useState({})
   const handleSwitchChange = (event) => {
     setIsChecked(event.target.checked);
     setFilter(false)
-    setBottom(false)
   }
 
   return (
-    <div >
+    <div style={{position: 'relative', minHeight: '100vh'}}>
     {!show && <div>
       {/* <div> */}
      
@@ -212,43 +207,16 @@ const [restaurant,setRestaurant] = useState({})
       
 {console.log(List,"lissssssss")}
 {show && <div className="mains">
-<div className="vegonly" style={{
-  marginTop: 0,
-  
-}}>
+<div className="vegonly">
 
-{List.map((it)=>(
-  
-  <div className="ulist">
-  <ul style={{
-    borderBottom: it.cat_id == catid && bottom == true ? "1px solid orange" : "#d0d0d0",
-    
-  }} >
-      <li onClick={()=>{setCatId(it.cat_id);setFilter(true);setItems(it.arr_items);setBottom(true)}}>{it.cat_name}
-      </li>
-    
-      
-    </ul>
-   
-  </div>
 
-    
-   
-  
-  
-  
-))
 
-}
-{console.log(bottom,"bottom")}
 {console.log(filter,"filter")}
 <div style={{
   display:"flex",
   justifyContent:"space-between",
   alignItems:'flex-end',
   marginRight:"auto",
- 
-  
 }} >
 
 {show && <FormControlLabel control={<Switch defaultChecked color="success" checked={isChecked} onChange={handleSwitchChange}/>} label="Veg-only" />}
@@ -257,77 +225,6 @@ const [restaurant,setRestaurant] = useState({})
 </div>}
 
 
-{show && !isChecked && filter===true && 
-<div className="mainContainer">
- {items?.map(item => {
- 
- return(
-  
-                <div key={item.id}>
-                <div className="divs">
-              <div className="allfood">
-             <Card>
-              <div className="subcontainer" >
-              
-              <img  
-                    src={item.image? item.image : "https://thumbs.dreamstime.com/b/assorted-indian-recipes-food-various-spices-rice-wooden-table-92742528.jpg"}
-                    alt="content Image"
-                    style={{
-                      width: "300px",
-                      borderRadius: "15px",
-                      
-                      height: 180}}
-
-                  />
-                
-
-              <div className="lsName">
-              <div style={{
-                display:"flex",
-                gap:"10px",
-               alignItems:"center"
-              }}>
-              <img style={{width:20,height:20,marginTop:2}} src={item?.vegid=== 1 ? veg : nonveg} alt="veg"/>
-              <span  style={{
-                fontWeight: 800,
-                fontSize:"25px",
-                color:"orange"
-                
-              }}
-              >{item.name}</span>
-              </div>
-             <span style={{
-                fontWeight: 800,
-                fontSize:"18px",
-                color:"gray"
-                
-              }}> ₹{item.price}</span>
-              </div>
-
-              <div className="desc" style={{ alignSelf: "flex-start" }}>
-               <p style={{
-                 fontStyle: "italic",
-                 color:"gray",
-                 fontWeight: 200
-
-              }}>{item.description}
-              
-              </p>
-              
-              </div>
-          
-             
-            
-                
-              </div>
-              </Card>
-           
-</div>
-</div>
-                </div>
- )
- 
- })}</div>}
  {/* {filter=== true && item.arr_items.filter(item => item.catid === catid).map(item => (
                 <div key={item.id}>
                   <span>{item.name}</span>
@@ -337,30 +234,38 @@ const [restaurant,setRestaurant] = useState({})
       
       
      {filter===false && show && !isChecked && 
-     <div className="mainContainer">
+    
+     <div className="mainContainers">
         {List.map((item, key) => {
 
        
           return (
             
-            
+        
             <div className="divs">
-              <div className="allfood">
-              
-             {item.arr_items.map((i)=>(
-              <Card>
+            
+              <div className="allfoods"> 
+              {item.arr_items.length>0 && (
+            
+                <div style={{margin:0}}>
+                {item.arr_items.map((i)=>(
+                  <Card>
               <div className="subcontainer" >
               
               <img  
-                    src={i.image? i.image : "https://thumbs.dreamstime.com/b/assorted-indian-recipes-food-various-spices-rice-wooden-table-92742528.jpg"}
+                    src={i.image? i.image:"https://thumbs.dreamstime.com/b/assorted-indian-recipes-food-various-spices-rice-wooden-table-92742528.jpg"}
+
                     alt="content Image"
                     style={{
                       width: "300px",
                       borderRadius: "15px",
                       
+                      
                       height: 180}}
 
                   />
+                  {console.log(i.image,"i.name")}
+
                 
 
               <div className="lsName">
@@ -372,6 +277,7 @@ const [restaurant,setRestaurant] = useState({})
               }}>
               
               <img style={{width:25,height:25,marginTop:2}} src={i?.vegid=== 1 ? veg : nonveg} alt="veg"/>
+              
               <span  style={{
                 fontWeight: 800,
                 fontSize:"25px",
@@ -382,7 +288,7 @@ const [restaurant,setRestaurant] = useState({})
 </div>
              <span style={{
                 fontWeight: 800,
-                fontSize:"20px",
+                fontSize:"18px",
                 color:"gray"
                 
               }}> ₹{i.price}</span>
@@ -394,7 +300,10 @@ const [restaurant,setRestaurant] = useState({})
                <p style={{
                  fontStyle: "italic",
                  color:"gray",
-                 fontWeight: 200
+                 fontWeight: 200,
+               
+                 
+                  
                  
 
               }}>{i.description}
@@ -402,26 +311,35 @@ const [restaurant,setRestaurant] = useState({})
               </p>
               
               </div>
-            
+             
              
             
                 
               </div>
               </Card>
              ))}
+             </div>
+             
+       
+              )}
+           
 </div>
+  
 </div>
-              
+           
              
              
             
           );
         })}
-        </div>}
+        </div>
+       
+        }
+      
 
-        {isChecked && show && filter===false && 
+        {isChecked && show && 
         
-        <div className="mainContainer">
+        <div className="mainContainers">
         {List.map((item, key) => {
   return (
     <div key={key}  >
@@ -430,19 +348,19 @@ const [restaurant,setRestaurant] = useState({})
 
           return (
             <div key={i.id}>
-            <Card>
-             
+             <Card>
               <div className="subcontainer" >
                 <img  
-                  src={i.image? i.image:"https://thumbs.dreamstime.com/b/assorted-indian-recipes-food-various-spices-rice-wooden-table-92742528.jpg"}
+                  src={i.image?i.image:"https://thumbs.dreamstime.com/b/assorted-indian-recipes-food-various-spices-rice-wooden-table-92742528.jpg"}
                   alt="content Image"
                   style={{
                     width: "300px",
-                    height: 180,
-                    borderRadius:"15px"
+                    borderRadius: "15px",
+                    height: 180
                   }}
                 />
-                <div className="lsName">
+                 
+                 <div className="lsName">
               <div style={{
                 display:"flex",
                 gap:"10px",
@@ -475,7 +393,7 @@ const [restaurant,setRestaurant] = useState({})
                  fontWeight: 200
                   }}>{i.description }</p>
                 </div>
-                
+               
               </div>
               </Card>
             </div>
@@ -499,89 +417,11 @@ const [restaurant,setRestaurant] = useState({})
        }
       
 
-{show && isChecked && filter===true && 
-<div className="mainContainer">
- {items?.map(item => {
- if(item.vegid === 1){
- 
- return(
 
-  
-                <div key={item.id}>
-                <div className="divs">
-              <div className="allfood">
-             <Card>
-              <div className="subcontainer" >
-              
-              <img  
-                    src={item.image?item.image:"https://thumbs.dreamstime.com/b/assorted-indian-recipes-food-various-spices-rice-wooden-table-92742528.jpg"}
-                    alt="content Image"
-                    style={{
-                      width: "300px",
-                      borderRadius: "15px",
-                      
-                      height: 180}}
-
-                  />
-                
-
-              <div className="lsName">
-              <div style={{
-                display:"flex",
-                gap:"10px",
-               alignItems:"center"
-              }}>
-              <img style={{width:25,height:25,marginTop:2}} src={item?.vegid=== 1 ? veg : nonveg} alt="veg"/>
-              <span  style={{
-                fontWeight: 800,
-                fontSize:"25px",
-                color:"orange"
-                
-              }}
-              >{item.name}</span>
-              </div>
-             <span style={{
-                fontWeight: 800,
-                fontSize:"18px",
-                color:"gray"
-                
-              }}> ₹{item.price}</span>
-              </div>
-
-              <div className="desc" style={{ alignSelf: "flex-start" }}>
-               <p style={{
-                 fontStyle: "italic",
-                 color:"gray",
-                 fontWeight: 200
-
-              }}>{item.description}
-              
-              </p>
-              
-              </div>
-            
-             
-            
-                
-              </div>
-              </Card>
-           
-</div>
-</div>
-                </div>
- 
- )
-
- }else{
-  return null
- }
- })}
- 
- </div>}
         
       
       { show && <Button onClick={()=>{setShow(false);setFilter(false);setIsChecked(false);setBottom(false)}} style={{
-        color: Dark ? "orange":'orange',
+        color:  "orange",
         fontSize:22,
         fontWeight:800,
         height:"60px",
@@ -598,7 +438,7 @@ const [restaurant,setRestaurant] = useState({})
 
         
        
-        backgroundColor: Dark? "black" : "black",
+        backgroundColor:  "black",
       }}>back</Button>} 
       </div>
       
@@ -607,7 +447,7 @@ const [restaurant,setRestaurant] = useState({})
   );
 };    
 
-export default NewsContent4;
+export default NewsContent3;
   {/* {filter=== true && item.arr_items.filter(item => item.catid === catid).map(item => (
                 <div key={item.id}>
                   <span>{item.name}</span>

@@ -5,7 +5,7 @@ import Button from "@mui/material/Button";
 import { Values } from "../Context/ContextTab";
 import Modal from "react-modal";
 // import { Alert } from "react-alert";
-const NavQuana = ({shopName,brand}) => {
+const NavQuana = ({shopName}) => {
   const { Dark, setDark } = useContext(Values);
   
   const { Orders, setOrders } = React.useContext(Values);
@@ -51,28 +51,18 @@ const NavQuana = ({shopName,brand}) => {
 
   // console.log(price);
   return (
-    <div style={{ display:"flex", alignItems:"center",justifyContent:"center",width:"103%"}}>
+    <div style={{ display:"flex", alignItems:"center",justifyContent:"center"}}>
       <div className="nav">
-      <div className="names">
-      <span style={{
-             
-             fontSize: "18px",
-           
-            
-             color: Dark ? "black" : "black",
-            
-           }}> {brand}</span>
-    
       <span style={{
              
               fontSize: "25px",
-          
+              // marginLeft: 20,
               margin:2,
-              color: Dark ? "black" : "black",
+              color: Dark ? "gray" : "gray",
              
             }}> {shopName}</span>
      
-         </div>
+         
       
 
         <div

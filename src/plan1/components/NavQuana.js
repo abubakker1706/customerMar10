@@ -5,9 +5,9 @@ import Button from "@mui/material/Button";
 import { Values } from "../Context/ContextTab";
 import Modal from "react-modal";
 // import { Alert } from "react-alert";
-const NavQuana = ({shopName,brand}) => {
+const NavQuana = () => {
   const { Dark, setDark } = useContext(Values);
-  
+  const { ShopName, setShopName } = React.useContext(Values);
   const { Orders, setOrders } = React.useContext(Values);
   const [ModalOpen, setModalOpen] = useState(false);
 
@@ -51,28 +51,44 @@ const NavQuana = ({shopName,brand}) => {
 
   // console.log(price);
   return (
-    <div style={{ display:"flex", alignItems:"center",justifyContent:"center",width:"103%"}}>
+    <div>
       <div className="nav">
-      <div className="names">
-      <span style={{
-             
-             fontSize: "18px",
-           
-            
-             color: Dark ? "black" : "black",
-            
-           }}> {brand}</span>
-    
       <span style={{
              
               fontSize: "25px",
-          
+              // marginLeft: 20,
               margin:2,
               color: Dark ? "black" : "black",
              
-            }}> {shopName}</span>
+            }}> {ShopName}</span>
      
-         </div>
+          <Button
+            onClick={() => {
+              // setDark(!Dark);
+              setModalOpen(true);
+            }}
+          >
+            <img
+              style={{ cursor: "pointer"  }}
+
+            
+              width="50px"
+            />
+            {/* <div
+              style={{
+                height: 20,
+                width: 20,
+                backgroundColor: "#c53444",
+                borderRadius: 10,
+                marginTop: -10,
+                marginLeft: -10,
+              }}
+            >
+              <p style={{ marginTop: -1, color: "white", fontWeight: "bold" }}>
+                {Orders.length}
+              </p>
+            </div> */}
+          </Button>
       
 
         <div
@@ -122,7 +138,7 @@ const NavQuana = ({shopName,brand}) => {
             cursor: "pointer",
           }}
         >
-          
+          <p style={{ color: "red" }}>X</p>
         </div>
 
         <p

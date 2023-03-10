@@ -19,7 +19,7 @@
   border-bottom-style: groove;
   
   border-bottom-width: 7px;
-  width: 10px;
+  
   
 }
 
@@ -41,8 +41,16 @@
  margin-top: 9rem;
  overflow: hidden;
 
-}
+  
 
+}
+.menu{
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
  
 
 /* .subcontainer{
@@ -86,59 +94,32 @@ width: 100%;
   font-family: sans-serif;
 } */
 
-.mainContainer {
+.mainContainers {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  background-color: #EBECF0;
-
-
+ flex-direction: column;
+  min-height: max-content;
+align-items: center;
+justify-content: center;
+background-color: #EBECF0;
+  width: 100%;
+  
+ 
 }
 .vegonly{
   display: flex;
   justify-content: center;
   align-items: center;
-
-  gap: 15px;
-  flex-wrap: wrap;
  
- 
-  
 }
 .mains{
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: flex-start;
-  background-color: #EBECF0;
- 
+background-color: #EBECF0;
+ width: 100%;
+
   
-}
-.ulist {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.ulist li {
-  margin-right: 10px;
-}
-
-.ulist .MuiSwitch-root {
-  margin-left: auto;
-}
-.menu{
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-}
-.ulist{
-display: flex;
-
 }
 ul{
   list-style-type:none;
@@ -150,32 +131,33 @@ ul{
   padding: 5px;
 }
 
-.divs {
+.allfoods {
+  
 
-  width: 350px;
   display: flex;
+ 
   flex-direction: column;
   align-items: center;
   
+  justify-content: center;
+ 
+
 }
 
-.allfood {
-  width: 100%;
- 
-  margin: 20px;
-}
 
 .subcontainer {
   display: flex;
  
   flex-direction: column;
   align-items: center;
+ justify-content: center;
+
 }
 
 .lsName {
   display: flex;
   justify-content: space-between;
-  width: 100%;
+ 
   
 }
 
@@ -189,11 +171,12 @@ ul{
 
 p {
   margin-top: 20px;
+
   
 }
 
 img {
-  width: 100%;
+  width: 360px;
   height: 180px;
   object-fit: cover;
  
